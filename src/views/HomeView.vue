@@ -1,7 +1,7 @@
-<script setup></script>
+<script setup>
+import HomeTemplateVue from "../components/templates/HomeTemplate.vue";
+</script>
 
 <template>
-  <main>
-    <span> Home </span>
-  </main>
+  <HomeTemplateVue />
 </template>
