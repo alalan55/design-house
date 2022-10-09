@@ -11,6 +11,11 @@
           </li>
         </ul>
       </div>
+      <div class="navbar__menu">
+        <!-- <figure> -->
+          <img src="/icons/menu-icon.svg" alt="Menu" />
+        <!-- </figure> -->
+      </div>
     </nav>
   </div>
 </template>
@@ -41,18 +46,15 @@ const links = [
 @import "@/assets/index.scss";
 
 .nav-container {
-  //   width: 100%;
   height: $dh-nav-container-height;
   display: flex;
   align-items: center;
   justify-content: center;
   position: fixed;
-  //   border: 2px solid blue;
   right: 0;
   left: 0;
-  // top: 0;
+  @include transition;
   .navbar {
-    // border: 2px solid red;
     width: 80%;
     height: $dh-nav-height;
     border-radius: 10px;
@@ -63,6 +65,7 @@ const links = [
     background-color: rgba(255, 255, 255, 0.9);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(5px);
+    @include transition;
     &__icon {
       span {
         font-weight: 700;
@@ -84,6 +87,42 @@ const links = [
             font-weight: 500;
           }
         }
+      }
+    }
+    &__menu {
+      display: none;
+      // figure {
+      //   width: 40px;
+      //   display: flex;
+      //   align-items: center;
+      //   justify-content: center;
+      //   cursor: pointer;
+      //   img {
+      //     width: 90%;
+      //     height: 90%;
+      //     object-fit: contain;
+      //   }
+      // }
+    }
+  }
+  @media (max-width: 750px) {
+    align-items: flex-start;
+    height: auto;
+    .navbar {
+      // border: 2px solid red;
+      width: 100%;
+      border-radius: 0px;
+   
+      &__links {
+        display: none;
+      }
+      &__menu {
+        display: block;
+        img{
+          width: 30px;
+          cursor: pointer;
+        }
+
       }
     }
   }

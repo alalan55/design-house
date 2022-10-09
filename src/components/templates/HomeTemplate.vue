@@ -14,5 +14,6 @@ export default {};
   height: 100vh;
   background: url('/img/cover.jpg') no-repeat;
   background-size: cover;
+  background-position: center;
 }
 </style>
