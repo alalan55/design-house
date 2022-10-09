@@ -4,7 +4,7 @@
       <div class="navbar__icon">
         <span> Furniture. </span>
       </div>
-      <div class="navbar__links">
+      <div ref="navLinks" class="navbar__links">
         <ul>
           <li v-for="(item, idx) in links" :key="idx">
             <RouterLink :to="item.path">{{ item.name }}</RouterLink>
@@ -12,16 +12,29 @@
         </ul>
       </div>
       <div class="navbar__menu">
-        <!-- <figure> -->
-          <img src="/icons/menu-icon.svg" alt="Menu" />
-        <!-- </figure> -->
+        <img
+          v-if="!showDrawer"
+          @click="showDrawer = true"
+          src="/icons/menu-icon.svg"
+          alt="Menu"
+        />
+        <img
+          v-else
+          @click="showDrawer = false"
+          src="/icons/menu-close-icon.svg"
+          alt="Menu close"
+        />
       </div>
     </nav>
   </div>
 </template>
 
 <script setup>
+import { ref, watch } from "vue";
 import { RouterLink } from "vue-router";
+
+const showDrawer = ref(false);
+const navLinks = ref(null);
 const links = [
   {
     name: "Home",
@@ -40,6 +53,10 @@ const links = [
     path: "/",
   },
 ];
+
+watch(showDrawer, (nv) => {
+  nv ? (navLinks.value.style.left = "-1px") : (navLinks.value.style.left = "-100%");
+});
 </script>
 
 <style lang="scss" scoped>
@@ -55,6 +72,7 @@ const links = [
   left: 0;
   @include transition;
   .navbar {
+    position: relative;
     width: 80%;
     height: $dh-nav-height;
     border-radius: 10px;
@@ -62,9 +80,12 @@ const links = [
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: rgba(255, 255, 255, 0.9);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(5px);
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
     @include transition;
     &__icon {
       span {
@@ -74,6 +95,7 @@ const links = [
       }
     }
     &__links {
+      @include transition;
       ul {
         padding: 0;
         display: flex;
@@ -91,38 +113,47 @@ const links = [
     }
     &__menu {
       display: none;
-      // figure {
-      //   width: 40px;
-      //   display: flex;
-      //   align-items: center;
-      //   justify-content: center;
-      //   cursor: pointer;
-      //   img {
-      //     width: 90%;
-      //     height: 90%;
-      //     object-fit: contain;
-      //   }
-      // }
     }
   }
-  @media (max-width: 750px) {
+  @media (max-width: $dh-mobile) {
     align-items: flex-start;
     height: auto;
     .navbar {
-      // border: 2px solid red;
       width: 100%;
       border-radius: 0px;
-   
+
       &__links {
-        display: none;
+        position: absolute;
+        left: -100%;
+        top: -2px;
+        height: 100vh;
+        width: 80%;
+        background: white;
+        padding: 0 !important;
+        margin: 0 !important;
+        ul {
+          height: 100%;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+
+          li {
+            margin: 1rem 0;
+            a {
+              font-weight: 600;
+              font-size: 1.1em;
+            }
+          }
+        }
       }
       &__menu {
         display: block;
-        img{
+        img {
           width: 30px;
           cursor: pointer;
         }
-
       }
     }
   }
