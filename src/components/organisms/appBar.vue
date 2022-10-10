@@ -1,3 +1,39 @@
+<script setup>
+import { ref, watch } from "vue";
+import { RouterLink } from "vue-router";
+import { onClickOutside } from "@vueuse/core";
+
+const showDrawer = ref(false);
+const navLinks = ref(null);
+const links = [
+  {
+    name: "Home",
+    path: "/",
+  },
+  {
+    name: "Sobre",
+    path: "/about",
+  },
+  {
+    name: "Galeria",
+    path: "/galery",
+  },
+  {
+    name: "Fale Conosco",
+    path: "/tallk-with-us",
+  },
+];
+
+watch(showDrawer, (nv) => {
+  nv ? (navLinks.value.style.left = "-1px") : (navLinks.value.style.left = "-100%");
+});
+
+onClickOutside(navLinks, () => {
+  navLinks.value.style.left = "-100%";
+  showDrawer.value = false;
+});
+</script>
+
 <template>
   <div class="nav-container">
     <nav class="navbar">
@@ -7,7 +43,9 @@
       <div ref="navLinks" class="navbar__links">
         <ul>
           <li v-for="(item, idx) in links" :key="idx">
-            <RouterLink :to="item.path">{{ item.name }}</RouterLink>
+            <RouterLink :to="item.path" @click="showDrawer = false">{{
+              item.name
+            }}</RouterLink>
           </li>
         </ul>
       </div>
@@ -28,42 +66,6 @@
     </nav>
   </div>
 </template>
-
-<script setup>
-import { ref, watch } from "vue";
-import { RouterLink } from "vue-router";
-import { onClickOutside } from "@vueuse/core";
-
-const showDrawer = ref(false);
-const navLinks = ref(null);
-const links = [
-  {
-    name: "Home",
-    path: "/",
-  },
-  {
-    name: "Sobre",
-    path: "/",
-  },
-  {
-    name: "Galeria",
-    path: "/",
-  },
-  {
-    name: "Fale Conosco",
-    path: "/",
-  },
-];
-
-watch(showDrawer, (nv) => {
-  nv ? (navLinks.value.style.left = "-1px") : (navLinks.value.style.left = "-100%");
-});
-
-onClickOutside(navLinks, () => {
-  navLinks.value.style.left = "-100%";
-  showDrawer.value = false;
-});
-</script>
 
 <style lang="scss" scoped>
 @import "@/assets/index.scss";
@@ -86,10 +88,10 @@ onClickOutside(navLinks, () => {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.75);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.18);
     @include transition;
@@ -113,6 +115,9 @@ onClickOutside(navLinks, () => {
             text-decoration: none;
             color: $dh-black-1;
             font-weight: 500;
+          }
+          .router-link-exact-active {
+            border-bottom: 1px solid;
           }
         }
       }
