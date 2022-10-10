@@ -74,6 +74,7 @@
     .left {
       p {
         letter-spacing: 0.3px;
+        line-height: 1.45;
       }
 
       @media (max-width: $dh-mobile) {
