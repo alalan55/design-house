@@ -43,10 +43,11 @@ const medias = [
 <style lang="scss" scoped>
 @import "@/assets/index.scss";
 footer {
-  padding: $dh-s-2;
+  padding: 0 $dh-s-2;
   background: $dh-black-1;
   color: white;
   border-top: 1px solid white;
+  height: $dh-footer-heigth;
 
   display: flex;
   align-items: center;
@@ -84,8 +85,8 @@ footer {
             object-fit: contain;
             display: block;
           }
-          transition: .2s ease-in-out;
-          &:hover{
+          transition: 0.2s ease-in-out;
+          &:hover {
             transform: translateY(-3px);
           }
         }

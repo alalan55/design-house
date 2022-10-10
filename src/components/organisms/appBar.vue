@@ -43,7 +43,7 @@ const links = [
   },
   {
     name: "Sobre",
-    path: "/",
+    path: "/about",
   },
   {
     name: "Galeria",

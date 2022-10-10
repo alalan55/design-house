@@ -1,15 +1,13 @@
+<script setup>
+import AboutTemplate from "@/components/templates/AboutTemplate.vue";
+</script>
+
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <main class="about">
+    <AboutTemplate />
+  </main>
 </template>
 
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-}
+<style lang="scss" scoped>
+@import "@/assets/index.scss";
 </style>
