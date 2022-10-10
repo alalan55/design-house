@@ -39,7 +39,6 @@ export default {};
       max-height: 100%;
       display: flex;
       align-items: flex-end;
-      // align-items: center;
       color: white;
       background: rgb(0, 0, 0);
       background: linear-gradient(

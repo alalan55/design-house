@@ -32,6 +32,7 @@
 <script setup>
 import { ref, watch } from "vue";
 import { RouterLink } from "vue-router";
+import { onClickOutside } from "@vueuse/core";
 
 const showDrawer = ref(false);
 const navLinks = ref(null);
@@ -57,6 +58,11 @@ const links = [
 watch(showDrawer, (nv) => {
   nv ? (navLinks.value.style.left = "-1px") : (navLinks.value.style.left = "-100%");
 });
+
+onClickOutside(navLinks, () => {
+  navLinks.value.style.left = "-100%";
+  showDrawer.value = false;
+});
 </script>
 
 <style lang="scss" scoped>
@@ -80,10 +86,10 @@ watch(showDrawer, (nv) => {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.9);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.18);
     @include transition;
